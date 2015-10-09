@@ -1,3 +1,5 @@
+bob = 0
+
 # These are import statements, just like in Java!
 # They help us so we don't have to rewrite code someone else has already written
 import pygame, sys
@@ -32,7 +34,7 @@ clock = pygame.time.Clock()
 # This loop is very interesting. When will it stop running?
 # (hint- when is the while condition false?)
 while True:
-    clock.tick(10)
+    clock.tick(15)
 
     # This gets the keyboard input. Don't worry too much about the first couple lines.
     for keypress in pygame.event.get():
@@ -44,16 +46,16 @@ while True:
         # Why do we check direction != UP, direction != DOWN, etc. ?
         elif keypress.type == KEYDOWN:
             # Check for the up arrow key
-            if keypress.key == K_UP and direction != UP:
+            if keypress.key == K_UP and direction != DOWN:
                 direction = UP
             # Check for the down arrow key
-            elif keypress.key == K_DOWN and direction != DOWN:
+            elif keypress.key == K_DOWN and direction != UP:
                 direction = DOWN
             # Check for the left arrow key
-            elif keypress.key == K_LEFT and direction != LEFT:
+            elif keypress.key == K_LEFT and direction != RIGHT:
                 direction = LEFT
             # Check for the right arrow key
-            elif keypress.key == K_RIGHT and direction != RIGHT:
+            elif keypress.key == K_RIGHT and direction != LEFT:
                 direction = RIGHT
 
     # Copy the head for later use.
@@ -76,8 +78,8 @@ while True:
     hasEaten = snakeHead.colliderect(apple)
 
     # Checks if the head collides with the wall.
-    if(hasHitWall):
-        quitGame()
+
+
 
     # We need to check if the head has collided with the body!
     # How can we do this?
@@ -86,16 +88,21 @@ while True:
 
 
     # Checks if the head collides with the apple.
+    if (hasHitWall):
+        apple = randomRect()
+        snakeBody.append(oldPiece)
+
+
+
     if (hasEaten):
         apple = randomRect()
         snakeBody.append(oldPiece)
 
+
+
     #Graphically draws all the updates we just made.
     draw(oldPiece, snakeHead, snakeBody, apple, hasEaten, screen)
     pygame.display.flip()
-
-
-
 
 
 
